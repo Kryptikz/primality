@@ -7,8 +7,13 @@ public class Calculate {
         BigDecimal in = new BigDecimal("1");
         boolean a = true;
         int f = 0;
+        System.out.println("top: " + top.toString());
+        System.out.println("input num: " + b.toString());
         while(a) {
             BigDecimal div = top.divide(in);
+            System.out.println("dec remainder mod 1: " + div.remainder(BigDecimal.ONE).toString());
+            System.out.println("in: " + in.toString());
+            System.out.println("div: " + div.toString());
             if (div.remainder(new BigDecimal("1")).compareTo(BigDecimal.ZERO)==0) {
                 System.out.println("factor with " + in.toString() + " found");
                 f++;
