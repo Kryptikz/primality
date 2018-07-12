@@ -1,6 +1,6 @@
 import java.math.BigInteger;
 public class BigIntegerTest {
-    public static void main(String[] args) {
+    public static void sizeTest() {
         BigInteger b = new BigInteger("37");
         while(true) {
             try {
@@ -11,8 +11,26 @@ public class BigIntegerTest {
             }
         }
     }
-    public static void primeTest(int n) {
-        boolean p = Calculate.isPrime(new BigInteger(n+""));
+    public static void primeTest(String n) {
+        boolean p = Calculate.BigSlow(new BigInteger(n));
         System.out.println(p);
+    }
+    public static void upTo(long n) {
+        long i=3;
+        while(i<n) {
+            BigInteger test = new BigInteger(""+i);
+            if (Calculate.BigSlow(test)) {
+                System.out.println("prime found: " + i);
+            }
+            i+=2;
+        }
+    }
+    public static void main(String[] args) {
+        upTo(100000);
+    }
+    public static void bigAddTest(String m) {
+        BigInteger max = new BigInteger(m);
+        Calculate.BigAdd(max);
+        
     }
 }
