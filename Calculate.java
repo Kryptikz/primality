@@ -10,8 +10,9 @@ public class Calculate {
         int f = 0;
         //System.out.println("top: " + top.toString());
         //System.out.println("input num: " + b.toString());
+        BigDecimal last = new BigDecimal("-1");
         while(a) {
-            BigDecimal div = num.divide(in, 50, BigDecimal. ROUND_HALF_UP);
+            BigDecimal div = num.divide(in, 10, BigDecimal.ROUND_HALF_UP);
             //System.out.println("dec remainder mod 1: " + div.remainder(BigDecimal.ONE).toString());
             //System.out.println("in: " + in.toString());
             //System.out.println("div: " + div.toString());
@@ -25,6 +26,16 @@ public class Calculate {
             in=in.add(BigDecimal.ONE);
             if (in.compareTo(top)>0) {
                 break;
+            }
+            BigDecimal percent = in.divide(top, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
+            //System.out.println(percent.toString() + "% confirmed complete with primality");
+            //System.out.println(percent.remainder(new BigDecimal("5")).compareTo(BigDecimal.ZERO)==0);
+            //System.out.println(last.compareTo(percent));
+            //System.out.println("percent:" + percent.toString());
+            //System.out.println("last:   " + last.toString());
+            if (percent.remainder(new BigDecimal("1")).compareTo(BigDecimal.ZERO)==0&&last.compareTo(percent)!=0) {
+                last=new BigDecimal(percent.toString());
+                System.out.println("factoring percent complete: " + percent);
             }
         }
         if (f>1) {
@@ -52,9 +63,6 @@ public class Calculate {
                 System.out.println("prev: " + prev.toString());
                 System.out.println("i: " + i.toString());
                 prev=i.subtract(prev);
-                
-                
-                
             }
             i=i.add(new BigInteger("2"));
             if(i.compareTo(max)>0) {
@@ -63,6 +71,27 @@ public class Calculate {
         }
         System.out.println("largest prime: " + prev.toString());
         return prev;
-        
+    }
+    public static BigInteger mersenne(int max) {
+        int mpow = 2;
+        BigInteger largest = new BigInteger("0");
+        BigInteger two = new BigInteger("2");
+        boolean a = true;
+        while(a) {
+            if(mpow>max) {
+                break;
+            }
+            System.out.println("calculating value of power: (2^" + mpow + ")-1");
+            BigInteger val = two.pow(mpow).subtract(BigInteger.ONE);
+            System.out.println("value of (2^" + mpow + ")-1: " + val);
+            System.out.println("evaluating primality test");
+            boolean c = BigSlow(val);
+            if (c) {
+                System.out.println("Mersenne prime found - power:" + mpow + " | base10 value:" + val.toString());
+                largest=val;
+            }
+            mpow++;
+        }
+        return largest;
     }
 }

@@ -26,11 +26,15 @@ public class BigIntegerTest {
         }
     }
     public static void main(String[] args) {
-        upTo(100000);
+        //upTo(100000);
+        mersenneTest(1000);
     }
     public static void bigAddTest(String m) {
         BigInteger max = new BigInteger(m);
         Calculate.BigAdd(max);
-        
+    }
+    public static void mersenneTest(int max) {
+        BigInteger largest = Calculate.mersenne(max);
+        System.out.println("largest prime found: " + largest.toString());
     }
 }
