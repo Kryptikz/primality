@@ -27,7 +27,7 @@ public class BigIntegerTest {
     }
     public static void main(String[] args) {
         //upTo(100000);
-        mersenneTest(1000);
+        mersenneTest(10000);
     }
     public static void bigAddTest(String m) {
         BigInteger max = new BigInteger(m);

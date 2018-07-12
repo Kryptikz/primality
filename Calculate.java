@@ -81,17 +81,33 @@ public class Calculate {
             if(mpow>max) {
                 break;
             }
-            System.out.println("calculating value of power: (2^" + mpow + ")-1");
+            //System.out.println("calculating value of power: (2^" + mpow + ")-1");
             BigInteger val = two.pow(mpow).subtract(BigInteger.ONE);
-            System.out.println("value of (2^" + mpow + ")-1: " + val);
-            System.out.println("evaluating primality test");
-            boolean c = BigSlow(val);
+            //System.out.println("value of (2^" + mpow + ")-1: " + val);
+            //System.out.println("evaluating Lucas-Lehmer test");
+            boolean c = LLT(mpow);
+            //boolean c = BigSlow(val);
             if (c) {
-                System.out.println("Mersenne prime found - power:" + mpow + " | base10 value:" + val.toString());
+                System.out.println("Mersenne prime found - power:" + mpow + " | base10 value:" + val.toString() + " | base10 length:" + val.toString().length());
                 largest=val;
             }
             mpow++;
         }
         return largest;
+    }
+    public static boolean LLT(int mpow) {
+        //Lucas-Lehmer test
+        BigInteger two = new BigInteger("2");
+        BigInteger s = new BigInteger("4");
+        BigInteger m = two.pow(mpow).subtract(BigInteger.ONE);
+        //System.out.println(m.toString());
+        for(int i=0;i<mpow-2;i++) {
+            s=new BigInteger(((s.multiply(s)).subtract(two)).remainder(m).toString());
+            //System.out.println(s.toString());
+        }
+        if (s.compareTo(BigInteger.ZERO)==0) {
+            return true;
+        }
+        return false;
     }
 }
